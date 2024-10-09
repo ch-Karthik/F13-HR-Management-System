@@ -5,12 +5,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <script>
+        // Function to get query parameters from the URL
+        function getQueryParam(param) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(param);
+        }
+
+        // Logout function
+        function logout() {
+            localStorage.removeItem('userToken'); // If using localStorage
+            sessionStorage.removeItem('userToken'); // If using sessionStorage
+            window.location.href = 'login.html'; // Redirect back to the login page
+        }
+
+        // Display the username on the dashboard
+        window.onload = function() {
+            const username = getQueryParam('username');
+            if (username) {
+                document.getElementById('welcomeMessage').innerText = `Welcome ${username}`;
+            }
+        };
+    </script>
 </head>
 <body>
     <div class="container">
-        <h1>Welcome to the Admin Dashboard</h1>
+        <h1 id="welcomeMessage">Welcome to the Admin Dashboard</h1>
         <p>This is a simple placeholder for the admin dashboard.</p>
-        <a href="login.html" class="btn btn-primary">Logout</a>
+        <button onclick="logout()" class="btn btn-primary">Logout</button>
     </div>
 </body>
 </html>
